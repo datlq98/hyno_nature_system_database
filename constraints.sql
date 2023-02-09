@@ -158,7 +158,7 @@ GO
 ALTER TABLE [Sales].[SalesOrder]
 ADD CONSTRAINT [FK_SalesOrder_Customer_CustomerID] FOREIGN KEY ([CustomerID]) REFERENCES [Sales].[Customer]([ID]),
     CONSTRAINT [FK_SalesOrder_Employee_CreatedByID] FOREIGN KEY ([CreatedByID]) REFERENCES [HumanResources].[Employee]([ID]),
-    CONSTRAINT [FK_SalesOrder_SalesOrderType_SalesOrderTypeID] FOREIGN KEY ([SalesOrderTypeID]) REFERENCES [Sales].[SalesOrder]([ID]),
+    CONSTRAINT [FK_SalesOrder_SalesOrderType_SalesOrderTypeID] FOREIGN KEY ([SalesOrderTypeID]) REFERENCES [Sales].[SalesOrderType]([ID]),
     CONSTRAINT [FK_SalesOrder_SalesOrderStatus_SalesOrderStatusID] FOREIGN KEY ([SalesOrderStatusID]) REFERENCES [Sales].[SalesOrderStatus]([ID]),
     CONSTRAINT [FK_SalesOrder_RecurrenceType_RecurrenceTypeID] FOREIGN KEY ([RecurrenceTypeID]) REFERENCES [Sales].[RecurrenceType]([ID]),
     CONSTRAINT [FK_SalesOrder_SalesOrder_OriginalSalesOrderID] FOREIGN KEY ([OriginalSalesOrderID]) REFERENCES [Sales].[SalesOrder]([ID]),
