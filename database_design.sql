@@ -97,7 +97,7 @@ CREATE TABLE [HumanResources].[Employee]
 	[ModifiedAt] [DATETIME] NOT NULL CONSTRAINT [DF_Employee_ModifiedDate] DEFAULT (GETDATE()),
 	CONSTRAINT [CK_Person_Gender] CHECK (UPPER([Gender]) IN ('F', 'M', 'O')),
 	CONSTRAINT [CK_Employee_EmailAddress] CHECK (EmailAddress LIKE '%___@___%.__%'),
-	CONSTRAINT [CK_Customer_PhoneNumber] CHECK (PhoneNumber NOT LIKE '%[^0-9]%')
+	CONSTRAINT [CK_Employee_PhoneNumber] CHECK (PhoneNumber NOT LIKE '%[^0-9]%')
 ) ON [PRIMARY];
 GO
 
@@ -120,6 +120,7 @@ CREATE TABLE [HumanResources].[EmployeeDepartmentHistory]
 	[DepartmentID] [INT] NOT NULL,
 	[StartDate] [DATE] NOT NULL,
 	[EndDate] [DATE] NULL,
+	[ActiveFlag] BIT NOT NULL CONSTRAINT [DF_EmployeeDepartmernt_ActiveFlag] DEFAULT (0),
 	[CreatedAt] [DATETIME] NOT NULL CONSTRAINT [DF_DepartmentHistory_CreatedDate] DEFAULT (GETDATE()),
 	[ModifiedAt] [DATETIME] NOT NULL CONSTRAINT [DF_DepartmentHistory_ModifiedDate] DEFAULT (GETDATE()),
 	CONSTRAINT [CK_EmployeeDepartmentHistory_EndDate] CHECK (([EndDate] >= [StartDate]) OR ([EndDate] IS NULL))
@@ -145,6 +146,7 @@ CREATE TABLE [HumanResources].[EmployeeRoleHistory]
 	[RoleID] [INT] NOT NULL,
 	[StartDate] [DATE] NOT NULL,
 	[EndDate] [DATE] NULL,
+	[ActiveFlag] BIT NOT NULL CONSTRAINT [DF_EmployeeRole_ActiveFlag] DEFAULT (0),
 	[CreatedAt] [DATETIME] NOT NULL CONSTRAINT [DF_RoleHistory_CreatedDate] DEFAULT (GETDATE()),
 	[ModifiedAt] [DATETIME] NOT NULL CONSTRAINT [DF_RoleHistory_ModifiedDate] DEFAULT (GETDATE()),
 	CONSTRAINT [CK_EmployeeRoleHistory_EndDate] CHECK (([EndDate] >= [StartDate]) OR ([EndDate] IS NULL))
@@ -159,6 +161,7 @@ CREATE TABLE [HumanResources].[EmployeeSalaryHistory]
 	[Salary] [MONEY] NOT NULL,
 	[StartDate] [DATE] NOT NULL,
 	[EndDate] [DATE] NULL,
+	[ActiveFlag] BIT NOT NULL CONSTRAINT [DF_EmployeeSalary_ActiveFlag] DEFAULT (0),
 	[CreatedAt] [DATETIME] NOT NULL CONSTRAINT [DF_SalaryHistory_CreatedDate] DEFAULT (GETDATE()),
 	[ModifiedAt] [DATETIME] NOT NULL CONSTRAINT [DF_SalaryHistory_ModifiedDate] DEFAULT (GETDATE()),
 	CONSTRAINT [CK_EmployeeSalaryHistory_EndDate] CHECK (([EndDate] >= [StartDate]) OR ([EndDate] IS NULL))
@@ -222,7 +225,7 @@ CREATE TABLE [Production].[Product]
 	[Name] [NVARCHAR](50) NOT NULL,
 	[Capacity] [VARCHAR](10) NOT NULL,
 	[SerialNumber] [VARCHAR](25) NOT NULL,
-	[IsAvailable] [BIT] NOT NULL CONSTRAINT [DF_Employee_ActiveFlag] DEFAULT (1),
+	[IsAvailable] [BIT] NOT NULL CONSTRAINT [DF_Product_IsAvailable] DEFAULT (1),
 	[ManufacturingDate] DATE NOT NULL,
 	[ExpriredDate] DATE NULL,
 	[CreatedAt] [DATETIME] NOT NULL CONSTRAINT [DF_Product_CreatedDate] DEFAULT (GETDATE()),
@@ -239,6 +242,7 @@ CREATE TABLE [Production].[ProductCostHistory]
 	[Cost] [MONEY] NOT NULL,
 	[StartDate] [DATE] NOT NULL,
 	[EndDate] [DATE] NULL,
+	[ActiveFlag] BIT NOT NULL CONSTRAINT [DF_ProductCostHistory_ActiveFlag] DEFAULT (0),
 	[CreatedAt] [DATETIME] NOT NULL CONSTRAINT [DF_ProductCostHistory_CreatedDate] DEFAULT (GETDATE()),
 	[ModifiedAt] [DATETIME] NOT NULL CONSTRAINT [DF_ProductCostHistory_ModifiedDate] DEFAULT (GETDATE()),
 	CONSTRAINT [CK_ProductCostHistory_EndDate] CHECK (([EndDate] >= [StartDate]) OR ([EndDate] IS NULL)),
@@ -254,6 +258,7 @@ CREATE TABLE [Production].[ProductPriceHistory]
 	[Price] [MONEY] NOT NULL,
 	[StartDate] [DATE] NOT NULL,
 	[EndDate] [DATE] NULL,
+	[ActiveFlag] BIT NOT NULL CONSTRAINT [DF_ProductPriceHistory_ActiveFlag] DEFAULT (0),
 	[CreatedAt] [DATETIME] NOT NULL CONSTRAINT [DF_ProductPriceHistory_CreatedDate] DEFAULT (GETDATE()),
 	[ModifiedAt] [DATETIME] NOT NULL CONSTRAINT [DF_ProductPriceHistory_ModifiedDate] DEFAULT (GETDATE()),
 	CONSTRAINT [CK_ProductPriceHistory_EndDate] CHECK (([EndDate] >= [StartDate]) OR ([EndDate] IS NULL)),
@@ -372,7 +377,7 @@ CREATE TABLE [Purchasing].[Supplier]
 	[CreatedAt] [DATETIME] NOT NULL CONSTRAINT [DF_Supplier_CreatedDate] DEFAULT (GETDATE()),
 	[ModifiedAt] [DATETIME] NOT NULL CONSTRAINT [DF_Supplier_ModifiedDate] DEFAULT (GETDATE()),
 	CONSTRAINT [CK_Supplier_EmailAddress] CHECK (EmailAddress LIKE '%___@___%.__%'),
-	CONSTRAINT [CK_Customer_PhoneNumber] CHECK (PhoneNumber NOT LIKE '%[^0-9]%')
+	CONSTRAINT [CK_Supplier_PhoneNumber] CHECK (PhoneNumber NOT LIKE '%[^0-9]%')
 ) ON [PRIMARY];
 GO
 
