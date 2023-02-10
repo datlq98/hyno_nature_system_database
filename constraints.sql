@@ -1,3 +1,10 @@
+USE HYNONatureDatabase;
+GO
+
+-- ******************************************************
+-- Create Foreign Key
+-- ******************************************************
+
 PRINT '';
 PRINT '*** Creating Foreign Key Constraints';
 GO
@@ -97,6 +104,13 @@ GO
 ALTER TABLE [Production].[WorkOrderDetail]
 ADD CONSTRAINT [FK_WorkOrderDetail_WorkOrder_WorkOrderID] FOREIGN KEY ([WorkOrderID]) REFERENCES [Production].[WorkOrder]([ID]),
     CONSTRAINT [FK_WorkOrderDetail_Product_ProductID] FOREIGN KEY ([ProductID]) REFERENCES [Production].[Product]([ID]);
+GO
+
+---- Product Material
+ALTER TABLE [Production].[ProductMaterial]
+ADD CONSTRAINT [FK_ProductMaterial_Product_ParentID] FOREIGN KEY ([ParentID]) REFERENCES [Production].[Product]([ID]),
+    CONSTRAINT [FK_ProductMaterial_Product_ComponentID] FOREIGN KEY ([ComponentID]) REFERENCES [Production].[Product]([ID]),
+    CONSTRAINT [FK_ProductMaterial_UnitMeasurement_UnitMeasurementID] FOREIGN KEY ([UnitMeasurementID]) REFERENCES [Production].[UnitMeasurement]([ID]);
 GO
 
 -- PURCHASING

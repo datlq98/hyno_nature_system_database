@@ -321,6 +321,19 @@ CREATE TABLE [Production].[WorkOrderDetail]
 ) ON [PRIMARY];
 GO
 
+---- Product Material
+CREATE TABLE [Production].[ProductMaterial]
+(
+	[ID] [INT] IDENTITY (1, 1) NOT NULL PRIMARY KEY,
+	[ParentID] INT NOT NULL,
+	[ComponentID] INT NOT NULL,
+	[UnitMeasurementID] INT NOT NULL,
+	[CreatedAt] [DATETIME] NOT NULL CONSTRAINT [DF_ProductMaterial_CreatedDate] DEFAULT (GETDATE()),
+	[ModifiedAt] [DATETIME] NOT NULL CONSTRAINT [DF_ProductMaterial_ModifiedDate] DEFAULT (GETDATE())
+) ON [PRIMARY];
+GO
+
+
 -- PAYMENT --
 ---- Payment Method ----
 CREATE TABLE [PaymentMethod]
