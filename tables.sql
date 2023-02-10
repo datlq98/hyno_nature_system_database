@@ -175,6 +175,7 @@ CREATE TABLE [Production].[UnitMeasurement]
 (
 	[ID] [INT] IDENTITY(1, 1) NOT NULL PRIMARY KEY,
 	[Name] [NVARCHAR](50) NOT NULL,
+	[Description] [NVARCHAR](200) NOT NULL,
 	[CreatedAt] [DATETIME] NOT NULL CONSTRAINT [DF_UnitMeasurement_CreatedDate] DEFAULT (GETDATE()),
 	[ModifiedAt] [DATETIME] NOT NULL CONSTRAINT [DF_UnitMeasurement_ModifiedDate] DEFAULT (GETDATE())
 ) ON [PRIMARY];
